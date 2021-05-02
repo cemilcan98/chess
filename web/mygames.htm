@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="content-type"    content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <script src="jquery-ui-1.8.24/js/jquery-1.8.2.min.js"></script>
+    <script src="bootstrap3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.24/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.24/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+
+<title>lozza chess engine</title>
+
+<meta name="title"       content="lozza chess engine" />
+<meta name="description" content="lozza chess engine" />
+<meta name="keywords"    content="chess, javascript, lozza, queens, gambit, queens gambit" />
+<meta name="viewport"    content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" type="text/css" media="screen" href="bootstrap3/css/bootstrap.min.css" />
+
+<style>
+body {padding: 20px;}
+.btn {width: 180px;};
+</style>
+
+</head>
+<body>
+
+<p><a class="btn btn-primary" href="index.htm">home</a></p>
+
+<table id="example" class="display compact" width="90%"></table>
+
+</body>
+
+<script>
+
+    $(document).ready(function() {
+
+        $.get( "http://localhost:5001/games/user/cemilcan?page=1&size=500", function( data ) {
+
+
+            var table = $('#example').DataTable( {
+                data: data,
+
+                columns: [
+                    { title: "id", data: 'id' },
+                    { title: "White" , data:"White" },
+                    { title: "Black" , data:"Black" },
+                    { title: "Date", data:"Date" },
+                    { title: "Result", data:"Result" },
+                ],
+                columnDefs:[
+                    { visible: false,"defaultContent" : "", "searchable" : true, "className" : "text-left", "targets" : 0},
+                    { "defaultContent" : "", "searchable" : true, "className" : "text-left", "targets" : 1},
+                    { "defaultContent" : "", "searchable" : true, "className" : "text-left", "targets" : 2},
+                    { "defaultContent" : "", "searchable" : true, "className" : "text-right", "targets" : 3},
+                    { "defaultContent" : "", "searchable" : true, "className" : "text-center", "targets" : 4}]
+            } );
+
+            $('#example tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+                window.location.href = "mygames_detail.htm?id="+ data.id
+
+            } );
+
+
+        });
+
+
+
+
+
+    } );
+
+</script>
+
+</html>
+
